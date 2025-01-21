@@ -67,10 +67,16 @@ export default function VoucherManagement() {
     try {
       const formData = new FormData()
       formData.append("image", file) // La clave "image" debe coincidir con tu backend
+      console.log("process ngrok", process.env.NGROK_URL)
 
-      const response = await axios.post("http://localhost:3000/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_NGROK_URL}/upload`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      
 
       // Suponiendo que response.data.data es un arreglo con tus vouchers extraídos
       const extractedData: ExtractedVoucher[] = response.data.data
